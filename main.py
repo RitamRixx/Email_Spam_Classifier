@@ -9,8 +9,8 @@ def main():
 
     X_train, X_test, y_train, y_test = split_data(df)
 
-    X_train = preprocess_series(X_train)
-    X_test = preprocess_series(X_test)
+    # X_train = preprocess_series(X_train)
+    # X_test = preprocess_series(X_test)
 
 
     # model building
