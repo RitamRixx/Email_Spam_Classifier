@@ -1,17 +1,17 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import FunctionTransformer
 from sklearn.metrics import accuracy_score, classification_report
+from src.preprocessing import preprocess_series
 import os
 import json
 
 
 def build_model():
     pipeline = Pipeline([
-        ("tfidf", TfidfVectorizer(
-            max_features=5000,
-            ngram_range=(1,2)
-        )),
+        ("clean", FunctionTransformer(preprocess_series)),
+        ("tfidf", TfidfVectorizer(max_features=5000,ngram_range=(1,2))),
         ("rf", RandomForestClassifier(
             n_estimators=200,
             max_depth=None,
