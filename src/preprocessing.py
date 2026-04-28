@@ -31,5 +31,9 @@ def clean_text(text: str) -> str:
     return text
 
 
+
 def preprocess_series(X):
+    if isinstance(X, list):
+        return [clean_text(x) for x in X]
+
     return X.apply(clean_text)
