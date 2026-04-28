@@ -3,6 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
 import os
+import json
 
 
 def build_model():
@@ -32,13 +33,14 @@ def evaluate(model, X_test, y_test):
     preds = model.predict(X_test)
 
     acc = accuracy_score(y_test, preds)
-    report = classification_report(y_test, preds)
+    report_dict = classification_report(y_test, preds, output_dict=True)
 
     print("Accuracy:", acc)
-    print("\nClassification Report:\n", report)
+    # print("\nClassification Report:\n", report)
 
     os.makedirs("reports", exist_ok=True)
-    
-    with open("reports/classification_report.txt", "w") as f:
-        f.write(f"Accuracy: {acc}\n\n")
-        f.write(report)
+
+    with open("reports/metrics.json", "w") as f:
+        json.dump(report_dict, f, indent=4)
+
+    print("Saved metrics to reports/metrics.json")
